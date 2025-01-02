@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dtos.Account;
+using Dtos.Service;
 using Models;
 
 namespace Repository.AutoMapper
@@ -13,6 +14,9 @@ namespace Repository.AutoMapper
             CreateMap<Account, NewBaseAccountDto>().ReverseMap();
             CreateMap<Account, NewEmployeeAccountDto>().ReverseMap();
             CreateMap<AccountDto, LoginAccountDto>();
+
+            CreateMap<Service, ServiceDto>().ReverseMap();
+            CreateMap<Service, NewServiceDto>().ReverseMap();
 
         }
     }

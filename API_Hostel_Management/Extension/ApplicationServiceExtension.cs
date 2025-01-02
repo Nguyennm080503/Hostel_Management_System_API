@@ -13,11 +13,13 @@ namespace API_Hostel_Management.Extension
         {
             //Repository
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
 
             //Service
             services.AddScoped<IMailService, MailService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IServiceService, ServiceService>();
 
 
             services.AddCors(opt =>

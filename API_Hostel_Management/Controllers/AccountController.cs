@@ -40,7 +40,7 @@ namespace API_Hostel_Management.Controllers
 
         [HttpPost("add/employees")]
         [Authorize(policy: "Admin")]
-        public async Task<ActionResult> CreateEmployeeAccount([FromBody] NewEmployeeAccountDto newStaffAndManagerAccountDto)
+        public async Task<ActionResult> CreateAccount([FromBody] NewEmployeeAccountDto newStaffAndManagerAccountDto)
         {
             if (!ModelState.IsValid)
             {
