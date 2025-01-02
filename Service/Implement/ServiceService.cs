@@ -10,17 +10,16 @@ namespace Service.Implement
     public class ServiceService : IServiceService
     {
         private readonly IServiceRepository _serviceRepository;
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+
         public ServiceService(
-           IConfiguration configuration,
            IServiceRepository serviceRepository,
            IMapper mapper)
         {
             _serviceRepository = serviceRepository;
-            _configuration = configuration;
             _mapper = mapper;
         }
+
         public async Task AddNewService(NewServiceDto serviceDto)
         {
             var service = await _serviceRepository.GetServiceInFlatfrom(serviceDto.ServiceName);

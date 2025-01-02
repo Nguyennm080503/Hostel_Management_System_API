@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dtos.Account;
+using Dtos.Measurement;
 using Dtos.Service;
 using Models;
 
@@ -18,6 +19,8 @@ namespace Repository.AutoMapper
             CreateMap<Service, ServiceDto>().ReverseMap();
             CreateMap<Service, NewServiceDto>().ReverseMap();
 
+            CreateMap<Measurement, MeasurementDto>().ReverseMap();
+            CreateMap<Measurement, NewMeasurementDto>().ReverseMap();
         }
     }
 }
