@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Dtos.Account;
+using Dtos.Hostel;
 using Dtos.Measurement;
+using Dtos.Room;
 using Dtos.Service;
 using Models;
 
@@ -21,6 +23,12 @@ namespace Repository.AutoMapper
 
             CreateMap<Measurement, MeasurementDto>().ReverseMap();
             CreateMap<Measurement, NewMeasurementDto>().ReverseMap();
+
+            CreateMap<Hostel, HostelDto>().ReverseMap();
+            CreateMap<Hostel, NewHostelDto>().ReverseMap();
+
+            CreateMap<Room, RoomDto>().ReverseMap();
+            CreateMap<Room, NewRoomDto>().ReverseMap();
         }
     }
 }

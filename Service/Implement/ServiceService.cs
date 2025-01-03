@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Dtos.Service;
-using Microsoft.Extensions.Configuration;
 using Repository.Interface;
 using Service.Exception;
 using Service.Interface;

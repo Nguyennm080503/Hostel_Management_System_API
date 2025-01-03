@@ -5,7 +5,6 @@ using Common;
 using Common.Enum;
 using Dao;
 using Dtos.Account;
-using Microsoft.Identity.Client;
 using Models;
 using Repository.Interface;
 
@@ -29,7 +28,7 @@ namespace Repository.Implement
             account.PasswordSalt = hmac.Key;
             account.CreatedDate = DateTime.Now;
             account.Status = AccountStatusEnum.Active.ToString();
-            account.Role = 1;
+            account.Role = 2;
 
             await AccountDao.Instance.CreateAsync(account);
 
