@@ -5,6 +5,7 @@ namespace Dtos.Room
 {
     public class RoomDto
     {
+        public int RoomID { get; set; }
         public int HostelID { get; set; }
         public string? RoomName { get; set; }
         public int? Capacity { get; set; }
@@ -39,5 +40,18 @@ namespace Dtos.Room
         [Required(ErrorMessage = "Vui lòng nhập số tiền thuê phòng này !")]
         public double? RoomFee { get; set; }
         public double? Area { get; set; }
+    }
+
+    public class UpdateRoomDto
+    {
+        public int RoomID { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tên phòng !")]
+        public string? RoomName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập tối đa người ở !")]
+        public int? Capacity { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập số tiền thuê phòng này !")]
+        public double? RoomFee { get; set; }
     }
 }

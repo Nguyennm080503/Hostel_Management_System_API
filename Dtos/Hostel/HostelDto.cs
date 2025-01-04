@@ -26,4 +26,14 @@ namespace Dtos.Hostel
         [Required(ErrorMessage = "Vui lòng nhập số phòng của nhà !")]
         public int HostelRooms { get; set; }
     }
+
+    public class UpdateHostelDto
+    {
+        public int HostelID { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tên nhà !")]
+        public string? HostelName { get; set; }
+
+        [Required(ErrorMessage = "Vui lòng nhập địa chỉ nhà !")]
+        public string? HostelAddress { get; set; }
+    }
 }

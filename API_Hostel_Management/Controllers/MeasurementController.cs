@@ -19,7 +19,7 @@ namespace API_Hostel_Management.Controllers
         }
 
         [HttpGet("all")]
-        [Authorize(policy: "Admin")]
+        [Authorize(policy: "CustomerAndAdmin")]
         public async Task<ActionResult> GetAllMeasurements()
         {
             try

@@ -30,9 +30,21 @@ namespace Service.Implement
             return;
         }
 
+        public async Task DeleteHostel(int hostelId)
+        {
+            await _hostelRepository.DeleteHostel(hostelId);
+            return;
+        }
+
         public async Task<IEnumerable<HostelDto>> GetAllHostelOfCustomer(int accountId)
         {
             return await _hostelRepository.GetAllHostelOfCustomer(accountId);
+        }
+
+        public async Task UpdateHostel(UpdateHostelDto hostelDto, int accountId)
+        {
+            await _hostelRepository.UpdateHostel(hostelDto, accountId);
+            return;
         }
     }
 }

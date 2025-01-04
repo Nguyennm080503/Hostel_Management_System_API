@@ -29,6 +29,13 @@ namespace Repository.AutoMapper
 
             CreateMap<Room, RoomDto>().ReverseMap();
             CreateMap<Room, NewRoomDto>().ReverseMap();
+
+            CreateMap<ServiceHostelRoom, ServiceRoomDto>().ReverseMap();
+            CreateMap<ServiceHostelRoom, NewServiceRoomDto>().ReverseMap();
+
+            CreateMap<ServiceHostel, HostelServiceDto>().ForMember(dest => dest.ServiceHostel, opt => opt.MapFrom(src => src.ServiceHostelRoom));
+            CreateMap<ServiceHostel, NewHostelServiceDto>().ReverseMap();
+
         }
     }
 }

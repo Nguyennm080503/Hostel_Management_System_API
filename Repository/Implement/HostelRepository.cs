@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Enum;
 using Dao;
 using Dtos.Hostel;
 using Models;
@@ -22,8 +23,17 @@ namespace Repository.Implement
             hostel.HostelRooms = hostelDto.HostelRooms;
             hostel.HostelType = hostelDto.HostelType;
             hostel.AccountID = accountId;
-            hostel.Status = "Active";
+            hostel.Status = HostelStatusEnum.Active.ToString();
             await HostelDao.Instance.CreateAsync(hostel);
+
+            return;
+        }
+
+        public async Task DeleteHostel(int hostelId)
+        {
+            var hostel = await HostelDao.Instance.GetHostelID(hostelId);
+            hostel.Status = HostelStatusEnum.Deleted.ToString();
+            await HostelDao.Instance.UpdateAsync(hostel);
 
             return;
         }
@@ -44,6 +54,17 @@ namespace Repository.Implement
         {
             var hostel = await HostelDao.Instance.GetHostelName(hostelName, accountId);
             return _mapper.Map<HostelDto>(hostel);
+        }
+
+        public async Task UpdateHostel(UpdateHostelDto hostelDto, int accountId)
+        {
+            var hostel = await HostelDao.Instance.GetHostelID(hostelDto.HostelID);
+            hostel.HostelName = hostelDto.HostelName;
+            hostel.HostelAddress = hostelDto.HostelAddress;
+
+            await HostelDao.Instance.UpdateAsync(hostel);
+
+            return;
         }
     }
 }

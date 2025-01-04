@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Enum;
 using Dao;
 using Dtos.Hostel;
 using Dtos.Room;
@@ -23,12 +24,20 @@ namespace Repository.Implement
             room.Width = roomDto.Width;
             room.Lenght = roomDto.Lenght;
             room.HostelID = roomDto.HostelID;
-            room.Status = "New";
+            room.Status = RoomStatusEnum.New.ToString();
             room.Area = roomDto.Area;
             room.DateCreate = DateTime.Now;
             await RoomDao.Instance.CreateAsync(room);
 
             return;
+        }
+
+        public async Task DeleteRoom(int roomId)
+        {
+            var room = await RoomDao.Instance.GetRoomID(roomId);
+            room.Status = RoomStatusEnum.Deleted.ToString();
+
+            await RoomDao.Instance.UpdateAsync(room);
         }
 
         public async Task<HostelRoomDto> GetAllRoomsOfHostel(int hostelId)
@@ -56,6 +65,16 @@ namespace Repository.Implement
         {
             var room = await RoomDao.Instance.GetRoomName(roomName, hostelId);
             return _mapper.Map<RoomDto>(room);
+        }
+
+        public async Task UpdateRoom(UpdateRoomDto roomDto)
+        {
+            var room = await RoomDao.Instance.GetRoomID(roomDto.RoomID);
+            room.RoomFee = roomDto.RoomFee;
+            room.RoomName = roomDto.RoomName;
+            room.Capacity = roomDto.Capacity;
+
+            await RoomDao.Instance.UpdateAsync(room);
         }
     }
 }

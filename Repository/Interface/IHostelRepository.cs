@@ -8,5 +8,7 @@ namespace Repository.Interface
         Task AddNewHostel(NewHostelDto hostel, int accountId);
         Task<HostelDto> GetHostelByName(string hostelName, int accountId);
         Task<HostelDto> GetHostelByID(int hostelID);
+        Task UpdateHostel(UpdateHostelDto hostelDto, int accountId);
+        Task DeleteHostel(int hostelId);
     }
 }

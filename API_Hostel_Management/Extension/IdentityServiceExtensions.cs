@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Common.Enum;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -30,13 +31,16 @@ namespace API_Hostel_Management.Extension
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Admin", policy =>
-                    policy.RequireClaim("Role", (0).ToString()));
+                    policy.RequireClaim("Role", ((int)AccountRoleEnum.Admin).ToString()));
 
                 options.AddPolicy("Staff", policy =>
-                    policy.RequireClaim("Role", (1).ToString()));
+                    policy.RequireClaim("Role", ((int)AccountRoleEnum.Staff).ToString()));
 
                 options.AddPolicy("Customer", policy =>
-                    policy.RequireClaim("Role", (2).ToString()));
+                    policy.RequireClaim("Role", ((int)AccountRoleEnum.Customer).ToString()));
+
+                options.AddPolicy("CustomerAndAdmin", policy =>
+                    policy.RequireClaim("Role", ((int)AccountRoleEnum.Admin).ToString(), ((int)AccountRoleEnum.Customer).ToString()));
             });
             return services;
         }

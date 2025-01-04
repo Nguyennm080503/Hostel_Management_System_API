@@ -1,6 +1,4 @@
-﻿using Azure.Messaging;
-using System.Reflection.Metadata;
-using Dtos.Account;
+﻿using Dtos.Account;
 using Microsoft.Extensions.Configuration;
 using Repository.Interface;
 using Service.Exception;
@@ -47,7 +45,7 @@ namespace Service.Implement
             }
 
 
-            await _accountRepository.AddAccountStaffInFlatform(newAccount);
+            await _accountRepository.AddAccountInFlatform(newAccount);
 
             //Send mail
             _mailService.SendMail(AuthenticationMail.SendWelcomeAndCredentialsToEmployee(newAccount.Email, newAccount.Name, GlobalConstant.DefaultPassword));
@@ -144,6 +142,17 @@ namespace Service.Implement
             }
 
             return account;
+        }
+
+        public async Task CreateAccountSample(int numberAccount)
+        {
+            if(numberAccount < 1)
+            {
+                throw new ServiceException("Không thể tạo tài khoản sample với số lượng bé hơn 1 !");
+            }
+            await _accountRepository.AddAccountSample(numberAccount);
+
+            return;
         }
     }
 }

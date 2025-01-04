@@ -19,7 +19,7 @@ namespace Repository.Implement
             _mapper = mapper;
         }
 
-        public async Task AddAccountStaffInFlatform(NewEmployeeAccountDto accountDto)
+        public async Task AddAccountInFlatform(NewEmployeeAccountDto accountDto)
         {
             var account = _mapper.Map<Account>(accountDto);
 
@@ -31,6 +31,56 @@ namespace Repository.Implement
             account.Role = 2;
 
             await AccountDao.Instance.CreateAsync(account);
+
+            return;
+        }
+
+        public async Task AddAccountSample(int numberAccount)
+        {
+            for (int i = 1; i <= numberAccount; i++)
+            {
+                var random = new Random();
+                var usedCitizenCards = new HashSet<string>();
+                var usedPhone = new HashSet<string>();
+                var account = new Account();
+
+                using var hmac = new HMACSHA512();
+                string email;
+                int attempt = 0;
+                do
+                {
+                    email = $"account{i + attempt}@gmail.com";
+                    attempt++;
+                } while (await CheckEmailExisted(email)); 
+
+                account.Email = email;
+                account.Address = "TP.HCM";
+                string citizenCard;
+                do
+                {
+                    citizenCard = $"{random.Next(100000, 999999)}{random.Next(100000, 999999)}";
+                } while (usedCitizenCards.Contains(citizenCard));
+                usedCitizenCards.Add(citizenCard);
+
+                string phone;
+                do
+                {
+                    phone = $"{random.Next(10000, 99999)}{random.Next(10000, 99999)}";
+                } while (usedPhone.Contains(phone));
+                usedPhone.Add(phone);
+
+                account.CitizenCard = citizenCard;
+                account.Phone = phone;
+                account.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(GlobalConstant.DefaultPassword));
+                account.PasswordSalt = hmac.Key;
+                account.CreatedDate = DateTime.Now;
+                account.Status = AccountStatusEnum.Active.ToString();
+                account.Role = 2;
+                account.Gender = 1;
+                account.Name = $"Account{i + attempt}";
+
+                await AccountDao.Instance.CreateAsync(account);
+            } 
 
             return;
         }

@@ -17,6 +17,8 @@ namespace API_Hostel_Management.Extension
             services.AddScoped<IMeasurementRepository, MeasurementRepository>();
             services.AddScoped<IHostelRepository, HostelRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IServiceRoomRepository, ServiceRoomRepository>();
+            services.AddScoped<IServiceHostelRepository, ServiceHostelRepository>();
 
             //Service
             services.AddScoped<IMailService, MailService>();
@@ -26,6 +28,8 @@ namespace API_Hostel_Management.Extension
             services.AddScoped<IMeasurementService, MeasurementService>();
             services.AddScoped<IHostelService, HostelService>();
             services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IServiceRoomService, ServiceRoomService>();
+            services.AddScoped<IServiceHostelService, ServiceHostelService>();
 
 
             services.AddCors(opt =>

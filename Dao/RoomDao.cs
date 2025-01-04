@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common.Enum;
+using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace Dao
@@ -29,14 +30,14 @@ namespace Dao
         {
             using (var context = new HostelManagementContext())
             {
-                return await context.Rooms.Where(x => x.HostelID == hostelId).OrderByDescending(x => x.DateCreate).ToListAsync();
+                return await context.Rooms.Where(x => x.HostelID == hostelId && x.Status != RoomStatusEnum.Deleted.ToString()).OrderByDescending(x => x.DateCreate).ToListAsync();
             }
         }
         public async Task<Room> GetRoomName(string roomName, int hostelId)
         {
             using (var context = new HostelManagementContext())
             {
-                return await context.Rooms.FirstOrDefaultAsync(x => x.RoomName == roomName && x.HostelID == hostelId);
+                return await context.Rooms.FirstOrDefaultAsync(x => x.RoomName == roomName && x.HostelID == hostelId && x.Status != RoomStatusEnum.Deleted.ToString());
             }
         }
 

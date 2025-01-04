@@ -61,5 +61,74 @@ namespace API_Hostel_Management.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("detail")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> GetRoomDetail(int roomId)
+        {
+            try
+            {
+                var room = await _roomService.GetRoomDetail(roomId);
+                return Ok(room);
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("delete/room")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> DeleteRoom(int roomId)
+        {
+            if (!ModelState.IsValid)
+            {
+                string errorMessages = ModelStateValidation.GetValidationErrors(ModelState);
+                return BadRequest(errorMessages);
+            }
+
+            try
+            {
+                await _roomService.DeleteRoom(roomId);
+                return Ok();
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPatch("update/room")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> UpdateRoom(UpdateRoomDto roomDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                string errorMessages = ModelStateValidation.GetValidationErrors(ModelState);
+                return BadRequest(errorMessages);
+            }
+
+            try
+            {
+                await _roomService.UpdateRoom(roomDto);
+                return Ok();
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

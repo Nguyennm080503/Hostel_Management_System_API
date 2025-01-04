@@ -1,34 +1,31 @@
-﻿using Dtos.Hostel;
-using Dtos.Service;
+﻿using Dtos.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Service.Exception;
-using Service.Implement;
 using Service.Interface;
 
 namespace API_Hostel_Management.Controllers
 {
-    [Route("api/hostels/customer")]
+    [Route("api/services/customer")]
     [ApiController]
-    public class HostelController : BaseApiController
+    public class ServiceRoomController : BaseApiController
     {
-        private readonly IHostelService _hostelService;
+        private readonly IServiceRoomService _serviceRoomService;
 
-        public HostelController(IHostelService hostelService)
+        public ServiceRoomController(IServiceRoomService serviceRoomService)
         {
-            _hostelService = hostelService;
+            _serviceRoomService = serviceRoomService;
         }
 
         [HttpGet("all")]
         [Authorize(policy: "Customer")]
-        public async Task<ActionResult> GetAllHostelOfCustomer()
+        public async Task<ActionResult> GetAllServices()
         {
             try
             {
-                int accountId = GetLoginAccountId();
-                var hostels = await _hostelService.GetAllHostelOfCustomer(accountId);
-                return Ok(hostels);
+                int accountID = GetLoginAccountId();
+                var services = await _serviceRoomService.GetAllServiceOfCustomer(accountID);
+                return Ok(services);
             }
             catch (ServiceException ex)
             {
@@ -40,9 +37,9 @@ namespace API_Hostel_Management.Controllers
             }
         }
 
-        [HttpPost("add/hostel")]
+        [HttpPost("add/service")]
         [Authorize(policy: "Customer")]
-        public async Task<ActionResult> CreateHostel([FromBody] NewHostelDto hostelDto)
+        public async Task<ActionResult> CreateService([FromBody] NewServiceRoomDto newService)
         {
             if (!ModelState.IsValid)
             {
@@ -52,8 +49,8 @@ namespace API_Hostel_Management.Controllers
 
             try
             {
-                int accountId = GetLoginAccountId();
-                await _hostelService.AddNewHostel(hostelDto, accountId);
+                int accountID = GetLoginAccountId();
+                await _serviceRoomService.AddNewService(newService, accountID);
                 return Ok();
             }
             catch (ServiceException ex)
@@ -66,9 +63,9 @@ namespace API_Hostel_Management.Controllers
             }
         }
 
-        [HttpPatch("update/hostel")]
+        [HttpDelete("delete/service")]
         [Authorize(policy: "Customer")]
-        public async Task<ActionResult> UpdateHostel([FromBody] UpdateHostelDto hostelDto)
+        public async Task<ActionResult> DeleteService(int serviceID)
         {
             if (!ModelState.IsValid)
             {
@@ -78,8 +75,7 @@ namespace API_Hostel_Management.Controllers
 
             try
             {
-                int accountId = GetLoginAccountId();
-                await _hostelService.UpdateHostel(hostelDto, accountId);
+                await _serviceRoomService.DeleteService(serviceID);
                 return Ok();
             }
             catch (ServiceException ex)
@@ -92,9 +88,9 @@ namespace API_Hostel_Management.Controllers
             }
         }
 
-        [HttpDelete("delete/hostel")]
+        [HttpPatch("update/service")]
         [Authorize(policy: "Customer")]
-        public async Task<ActionResult> DeleteHostel(int hostelId)
+        public async Task<ActionResult> UpdateService(UpdateServiceHiringDto updateService)
         {
             if (!ModelState.IsValid)
             {
@@ -104,7 +100,7 @@ namespace API_Hostel_Management.Controllers
 
             try
             {
-                await _hostelService.DeleteHostel(hostelId);
+                await _serviceRoomService.UpdateService(updateService);
                 return Ok();
             }
             catch (ServiceException ex)

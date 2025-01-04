@@ -63,4 +63,9 @@ namespace Dtos.Account
     {
 
     }
+
+    public class AccountNumberDto
+    {
+        public int Number { get; set; }
+    }
 }

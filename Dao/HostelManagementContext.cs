@@ -23,6 +23,8 @@ namespace Dao
         public DbSet<ServiceHostelRoom> ServiceHostelRooms { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
+        public DbSet<MemberHiringRoom> MemberHiringRooms { get; set; }
+        public DbSet<ServiceHostel> ServiceHostels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -64,6 +66,12 @@ namespace Dao
                 .HasForeignKey(h => h.AccountHiringID)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Account>()
+                .HasMany(a => a.ServiceHostelRooms)
+                .WithOne(h => h.Account)
+                .HasForeignKey(h => h.AccountID)
+                .OnDelete(DeleteBehavior.NoAction);
+
             // Hostels and Rooms
             modelBuilder.Entity<Hostel>()
                 .HasMany(h => h.Rooms)
@@ -71,8 +79,14 @@ namespace Dao
                 .HasForeignKey(r => r.HostelID)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Hostel>()
+               .HasMany(h => h.ServiceHostels)
+               .WithOne(r => r.Hostel)
+               .HasForeignKey(r => r.HostelID)
+               .OnDelete(DeleteBehavior.Cascade);
+
             // HiringRoomHostel relationships
-                modelBuilder.Entity<HiringRoomHostel>()
+            modelBuilder.Entity<HiringRoomHostel>()
              .HasOne(h => h.AccountOwner)
              .WithMany()
              .HasForeignKey(h => h.AccountOwnerID)
@@ -95,6 +109,16 @@ namespace Dao
                 .WithMany()
                 .HasForeignKey(h => h.AccountHiringID)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<MemberHiringRoom>()
+                .HasKey(m => m.MemberHiringID);
+
+            modelBuilder.Entity<MemberHiringRoom>()
+                .HasOne(hs => hs.HiringRoomHostel)
+                .WithMany(h => h.MemberHiringRooms)
+                .HasForeignKey(hs => hs.HiringRoomHostelID)
+                .OnDelete(DeleteBehavior.NoAction); // Prevent cascading delete
+
 
             // HiringService relationships
             modelBuilder.Entity<HiringService>()
@@ -137,6 +161,15 @@ namespace Dao
                 .HasOne(shr => shr.Measurement)
                 .WithMany()
                 .HasForeignKey(shr => shr.MeasurementID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceHostel>()
+                .HasKey(shr => shr.HiringServiceHostelID); // Define primary key
+
+            modelBuilder.Entity<ServiceHostel>()
+                .HasOne(hs => hs.ServiceHostelRoom)
+                .WithMany(shr => shr.ServiceHostels)
+                .HasForeignKey(hs => hs.ServiceHostelRoomID)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }
