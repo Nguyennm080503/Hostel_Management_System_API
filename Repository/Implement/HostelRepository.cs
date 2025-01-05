@@ -66,5 +66,14 @@ namespace Repository.Implement
 
             return;
         }
+
+        public async Task UpdateHostelHiring(int hostelId)
+        {
+            var hostel = await HostelDao.Instance.GetHostelID(hostelId);
+            hostel.Status = HostelStatusEnum.Hiring.ToString();
+            await HostelDao.Instance.UpdateAsync(hostel);
+
+            return;
+        }
     }
 }

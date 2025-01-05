@@ -5,8 +5,8 @@
         public int BillPaymentID { get; set; }
         public int AccountCreateID { get; set; }
         public Account? AccountCreate { get; set; }
-        public int HiringPaymentID { get; set; }
-        public HiringPayment? HiringPayment { get; set; }
+        public int HiringRoomHostelID { get; set; }
+        public HiringRoomHostel? HiringRoomHostel { get; set; }
         public int BillPaymentType { get; set; }
         public double BillPaymentAmount { get; set; }
         public string? BillNote { get; set; }

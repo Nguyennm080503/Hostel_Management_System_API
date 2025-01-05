@@ -76,5 +76,13 @@ namespace Repository.Implement
 
             await RoomDao.Instance.UpdateAsync(room);
         }
+
+        public async Task UpdateRoomHiring(int roomId)
+        {
+            var room = await RoomDao.Instance.GetRoomID(roomId);
+            room.Status = RoomStatusEnum.Hiring.ToString();
+
+            await RoomDao.Instance.UpdateAsync(room);
+        }
     }
 }

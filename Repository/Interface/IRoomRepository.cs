@@ -10,5 +10,6 @@ namespace Repository.Interface
         Task<RoomDto> GetRoomByID(int roomID);
         Task DeleteRoom(int roomId);
         Task UpdateRoom(UpdateRoomDto roomDto);
+        Task UpdateRoomHiring(int roomId);
     }
 }

@@ -9,17 +9,20 @@
         public Hostel? Hostel { get; set; }
         public int? RoomID { get; set; }
         public Room? Room { get; set; }
-        public int AccountHiringID { get; set; }
+        public string? AccountHiringName { get; set; }
+        public string? AccountHiringPhone { get; set; }
+        public string? AccountHiringAddress { get; set; }
+        public string? AccountHiringCitizen { get; set; }
         public int HiringType { get; set; }
         public double DepositAmount { get; set; }
-        public Account? AccountHiring { get; set; }
         public int DateHiring {  get; set; }
         public DateTime? HiringStart { get; set; }
-        public DateTime HiringEnd {  get; set; }
+        public DateTime? HiringEnd {  get; set; }
         public DateTime DateCreate { get; set; }
+        public string? Status { get; set; }
 
         public IList<HiringService>? HiringServices { get; set; }
-        public IList<HiringPayment>? HiringPayments { get; set; }
         public IList<MemberHiringRoom>? MemberHiringRooms { get; set; }
+        public IList<BillPayment>? BillPayments {  get; set; } 
     }
 }

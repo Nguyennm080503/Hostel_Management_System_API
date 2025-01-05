@@ -17,7 +17,6 @@
         public string? Status { get; set; }
 
         public IList<Hostel>? Hostels { get; set; }
-        public IList<HiringRoomHostel>? HiringRoomHostels { get; set; }
         public IList<HiringRoomHostel>? HiringRoomOwner {  get; set; }
         public IList<ServiceHostelRoom>? ServiceHostelRooms { get; set; }
     }

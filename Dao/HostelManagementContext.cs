@@ -17,7 +17,6 @@ namespace Dao
         public DbSet<Room> Rooms { get; set; }
         public DbSet<HiringRoomHostel> HiringRoomHostels { get; set; }
         public DbSet<HiringService> HiringServices { get; set; }
-        public DbSet<HiringPayment> HiringPayments { get; set; }
         public DbSet<BillPayment> BillPayments { get; set; }
         public DbSet<BillInformation> BillInformations { get; set; }
         public DbSet<ServiceHostelRoom> ServiceHostelRooms { get; set; }
@@ -61,12 +60,6 @@ namespace Dao
                 .OnDelete(DeleteBehavior.NoAction); 
 
             modelBuilder.Entity<Account>()
-                .HasMany(a => a.HiringRoomHostels)
-                .WithOne(h => h.AccountHiring)
-                .HasForeignKey(h => h.AccountHiringID)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Account>()
                 .HasMany(a => a.ServiceHostelRooms)
                 .WithOne(h => h.Account)
                 .HasForeignKey(h => h.AccountID)
@@ -85,13 +78,6 @@ namespace Dao
                .HasForeignKey(r => r.HostelID)
                .OnDelete(DeleteBehavior.Cascade);
 
-            // HiringRoomHostel relationships
-            modelBuilder.Entity<HiringRoomHostel>()
-             .HasOne(h => h.AccountOwner)
-             .WithMany()
-             .HasForeignKey(h => h.AccountOwnerID)
-             .OnDelete(DeleteBehavior.NoAction); // No cascading delete for AccountOwner to HiringRoomHostel
-
             modelBuilder.Entity<HiringRoomHostel>()
                 .HasOne(h => h.Hostel)
                 .WithMany()
@@ -104,11 +90,6 @@ namespace Dao
                 .HasForeignKey(h => h.RoomID)
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete from Room to HiringRoomHostel if needed
 
-            modelBuilder.Entity<HiringRoomHostel>()
-                .HasOne(h => h.AccountHiring)
-                .WithMany()
-                .HasForeignKey(h => h.AccountHiringID)
-                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<MemberHiringRoom>()
                 .HasKey(m => m.MemberHiringID);
@@ -140,11 +121,11 @@ namespace Dao
                 .HasForeignKey(bp => bp.AccountCreateID)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<BillPayment>()
-                .HasOne(bp => bp.HiringPayment)
-                .WithMany()
-                .HasForeignKey(bp => bp.HiringPaymentID)
-                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<HiringRoomHostel>()
+              .HasMany(a => a.BillPayments)
+              .WithOne(h => h.HiringRoomHostel)
+              .HasForeignKey(h => h.HiringRoomHostelID)
+              .OnDelete(DeleteBehavior.Cascade);
 
             // BillInformation relationships
             modelBuilder.Entity<BillInformation>()

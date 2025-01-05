@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dtos.Account;
+using Dtos.Hiring;
 using Dtos.Hostel;
 using Dtos.Measurement;
 using Dtos.Room;
@@ -35,6 +36,12 @@ namespace Repository.AutoMapper
 
             CreateMap<ServiceHostel, HostelServiceDto>().ForMember(dest => dest.ServiceHostel, opt => opt.MapFrom(src => src.ServiceHostelRoom));
             CreateMap<ServiceHostel, NewHostelServiceDto>().ReverseMap();
+
+            CreateMap<HiringRoomHostel, HiringDto>().ReverseMap();
+            CreateMap<HiringRoomHostel, CreateHiringDto>().ReverseMap();
+
+            CreateMap<MemberHiringRoom, HiringMemberDto>().ReverseMap();
+            CreateMap<MemberHiringRoom, NewHiringMemberDto>().ReverseMap();
 
         }
     }

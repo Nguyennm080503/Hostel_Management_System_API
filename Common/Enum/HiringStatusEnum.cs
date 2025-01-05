@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Common.Enum
 {
-    public enum HostelStatusEnum
+    public enum HiringStatusEnum
     {
-        Active,
-        Inactive,
         Hiring,
+        Done,
         Deleted
     }
 }
