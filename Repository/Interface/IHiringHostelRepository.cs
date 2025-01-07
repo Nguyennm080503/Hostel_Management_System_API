@@ -9,5 +9,6 @@ namespace Repository.Interface
         Task<IEnumerable<HiringDto>> GetAllHiringsHistory(int roomId);
         Task<HiringDto> GetHiringCurrent(int roomId);
         Task<HiringDto> GetHiringByID(int hiringId);
+        Task CreateServiceLogIndex(NewServiceLogIndexDto logIndexDto);
     }
 }

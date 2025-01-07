@@ -10,5 +10,8 @@ namespace Repository.Interface
         Task DeleteService(int serviceID);
         Task<ServiceRoomDto> GetServiceByID(int serviceID);
         Task UpdateService(UpdateServiceHiringDto updateService);
+        Task AddNewServiceHiring(RoomServiceDto serviceDto);
+        Task<RoomServiceDataDto> GetServiceByCurrent(int serviceID , int roomId);
+        Task<IEnumerable<RoomServiceInformationDto>> GetAllServiceOfRoom(int hiringId);
     }
 }

@@ -28,6 +28,16 @@ namespace Repository.Implement
             return;
         }
 
+        public async Task CreateServiceLogIndex(NewServiceLogIndexDto logIndexDto)
+        {
+            var indexLog = _mapper.Map<ServiceLogIndex>(logIndexDto);
+            indexLog.DateCreate = DateTime.Now;
+
+            await ServiceLogIndexDao.Instance.CreateAsync(indexLog);
+
+            return;
+        }
+
         public Task DeleteHiringHostel()
         {
             throw new NotImplementedException();

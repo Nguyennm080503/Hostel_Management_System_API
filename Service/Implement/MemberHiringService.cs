@@ -26,5 +26,17 @@ namespace Service.Implement
 
             return;
         }
+
+        public async Task DeleteMember(int memberHiringID)
+        {
+            var hiring = await _repository.GetMemberByID(memberHiringID);
+            if (hiring == null)
+            {
+                throw new ServiceException("Thành viên này không tồn tại !");
+            }
+            await _repository.DeleteMember(memberHiringID);
+
+            return;
+        }
     }
 }

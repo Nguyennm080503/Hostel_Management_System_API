@@ -30,6 +30,14 @@ namespace Repository.Implement
             return;
         }
 
+        public async Task AddNewServiceHiring(RoomServiceDto serviceDto)
+        {
+            var serviceRoom = _mapper.Map<HiringService>(serviceDto);
+            await RoomServiceDao.Instance.CreateAsync(serviceRoom);
+
+            return;
+        }
+
         public async Task DeleteService(int serviceID)
         {
             var service = await ServiceHiringDao.Instance.GetServiceID(serviceID);
@@ -43,6 +51,20 @@ namespace Repository.Implement
             var services = await ServiceHiringDao.Instance.GetAllServiceOfCustomer(accountID);
 
             return _mapper.Map<IEnumerable<ServiceRoomDto>>(services);
+        }
+
+        public async Task<IEnumerable<RoomServiceInformationDto>> GetAllServiceOfRoom(int hiringId)
+        {
+            var services = await RoomServiceDao.Instance.GetAllServiceOfRoom(hiringId);
+
+            return _mapper.Map<IEnumerable<RoomServiceInformationDto>>(services);
+        }
+
+        public async Task<RoomServiceDataDto> GetServiceByCurrent(int serviceID, int roomId)
+        {
+            var service = await RoomServiceDao.Instance.GetServiceByCurrent(serviceID, roomId);
+
+            return _mapper.Map<RoomServiceDataDto>(service);
         }
 
         public async Task<ServiceRoomDto> GetServiceByID(int serviceID)

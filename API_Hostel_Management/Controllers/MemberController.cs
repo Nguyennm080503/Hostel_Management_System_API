@@ -42,5 +42,31 @@ namespace API_Hostel_Management.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpDelete("delete/member")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> DeleteMember(int memberHiringID)
+        {
+            if (!ModelState.IsValid)
+            {
+                string errorMessages = ModelStateValidation.GetValidationErrors(ModelState);
+                return BadRequest(errorMessages);
+            }
+
+            try
+            {
+                int accountId = GetLoginAccountId();
+                await _memberHiringService.DeleteMember(memberHiringID);
+                return Ok();
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

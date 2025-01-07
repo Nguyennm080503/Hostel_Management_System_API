@@ -8,5 +8,7 @@
         public int ServiceHostelRoomID { get; set; }
         public ServiceHostelRoom? ServiceHostelRoom { get; set; }
 
+        public IList<ServiceLogIndex>? ServiceLogIndices { get; set; }
+
     }
 }

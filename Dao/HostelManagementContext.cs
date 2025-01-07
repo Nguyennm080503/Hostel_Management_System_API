@@ -24,6 +24,7 @@ namespace Dao
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<MemberHiringRoom> MemberHiringRooms { get; set; }
         public DbSet<ServiceHostel> ServiceHostels { get; set; }
+        public DbSet<ServiceLogIndex> ServiceLogIndex { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -151,6 +152,18 @@ namespace Dao
                 .HasOne(hs => hs.ServiceHostelRoom)
                 .WithMany(shr => shr.ServiceHostels)
                 .HasForeignKey(hs => hs.ServiceHostelRoomID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceLogIndex>()
+                .HasOne(shr => shr.ServiceHostel)
+                .WithMany(shr => shr.ServiceLogIndices)
+                .HasForeignKey(shr => shr.ServiceHostelID)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<ServiceLogIndex>()
+                .HasOne(shr => shr.ServiceRoom)
+                .WithMany(shr => shr.ServiceLogIndices)
+                .HasForeignKey(shr => shr.ServiceRoomID)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

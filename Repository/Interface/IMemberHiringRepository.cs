@@ -8,5 +8,6 @@ namespace Repository.Interface
         Task CreateNewMember(NewHiringMemberDto member);
 
         Task DeleteMember(int memberId);
+        Task<HiringMemberDto> GetMemberByID(int memberHiringID);
     }
 }

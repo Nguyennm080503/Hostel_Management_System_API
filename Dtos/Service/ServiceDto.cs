@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Dtos.Hiring;
 using Dtos.Measurement;
 
 namespace Dtos.Service
@@ -23,6 +24,16 @@ namespace Dtos.Service
         public int ServiceHostelPrice { get; set; }
         public int MeasurementID { get; set; }
         public MeasurementDto Measurement { get; set; }
+        public IEnumerable<ServiceLogIndexDto> ServiceLogIndex { get; set; }
+    }
+
+    public class ServiceLogIndexDto
+    {
+        public int ServiceLogIndexID { get; set; }
+        public int? ServiceRoomID { get; set; }
+        public int? ServiceHostelID { get; set; }
+        public int ServiceLog { get; set; }
+        public DateTime? DateCreate { get; set; }
     }
 
     public class NewServiceRoomDto
@@ -55,5 +66,31 @@ namespace Dtos.Service
     {
         public int ServiceHostelID { get; set; }
         public int ServiceHostelPrice { get; set; }
+    }
+
+    public class NewRoomServiceDto
+    {
+        public int ServiceHostelRoomID { get; set; }
+        public NewServiceLogIndexDto NewServiceLogIndexDto { get; set; }
+    }
+
+    public class RoomServiceDto
+    {
+        public int HiringRoomHostelID { get; set; }
+        public int ServiceHostelRoomID { get; set; }
+    }
+
+    public class RoomServiceDataDto
+    {
+        public int HiringServiceID { get; set; }
+        public int HiringRoomHostelID { get; set; }
+        public int ServiceHostelRoomID { get; set; }
+    }
+
+    public class RoomServiceInformationDto
+    {
+        public int HiringRoomHostelID { get; set; }
+        public int ServiceHostelRoomID { get; set; }
+        public ServiceRoomDto? ServiceRoom { get; set; }
     }
 }

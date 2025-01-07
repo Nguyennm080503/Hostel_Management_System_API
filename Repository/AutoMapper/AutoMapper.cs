@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dtos.Account;
+using Dtos.Bill;
 using Dtos.Hiring;
 using Dtos.Hostel;
 using Dtos.Measurement;
@@ -43,6 +44,31 @@ namespace Repository.AutoMapper
             CreateMap<MemberHiringRoom, HiringMemberDto>().ReverseMap();
             CreateMap<MemberHiringRoom, NewHiringMemberDto>().ReverseMap();
 
+            CreateMap<HiringService, RoomServiceDto>().ReverseMap();
+            CreateMap<HiringService, RoomServiceDataDto>().ReverseMap();
+            CreateMap<HiringService, NewRoomServiceDto>().ReverseMap();
+            CreateMap<HiringService, RoomServiceInformationDto>().ForMember(dest => dest.ServiceRoom, opt => opt.MapFrom(src => src.ServiceHostelRoom)).AfterMap((src, dest) => {
+                if (dest.ServiceRoom != null && src.ServiceLogIndices != null)
+                {
+                    dest.ServiceRoom.ServiceLogIndex = src.ServiceLogIndices.Select(logIndex => new ServiceLogIndexDto
+                    {
+                        ServiceLogIndexID = logIndex.ServiceLogIndexID,
+                        ServiceRoomID = logIndex.ServiceRoomID,
+                        ServiceHostelID = logIndex.ServiceHostelID,
+                        ServiceLog = logIndex.ServiceLog,
+                        DateCreate = logIndex.DateCreate
+                    }).ToList();
+                }
+            });
+
+            CreateMap<ServiceLogIndex, NewServiceLogIndexDto>().ReverseMap();
+            CreateMap<ServiceLogIndex, ServiceLogIndexDto>().ReverseMap();
+
+            CreateMap<BillPayment, BillDto>().ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.BillInformation)).ForMember(dest => dest.Hiring, opt => opt.MapFrom(src => src.HiringRoomHostel));
+            CreateMap<BillPayment, NewBillDto>().ReverseMap();
+
+            CreateMap<BillInformation, BillDetailDto>().ReverseMap();
+            CreateMap<BillInformation, NewBillDetailDto>().ReverseMap();
         }
     }
 }

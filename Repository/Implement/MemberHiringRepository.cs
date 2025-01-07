@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Execution;
 using Dao;
 using Dtos.Hiring;
 using Models;
@@ -34,6 +35,12 @@ namespace Repository.Implement
         {
             var members = await MemberHiringDao.Instance.GetMembersInRoom(hiringId);
             return _mapper.Map<IEnumerable<HiringMemberDto>>(members);
+        }
+
+        public async Task<HiringMemberDto> GetMemberByID(int memberHiringID)
+        {
+            var member = await MemberHiringDao.Instance.GetMemberInRoom(memberHiringID);
+            return _mapper.Map<HiringMemberDto>(member);
         }
     }
 }
