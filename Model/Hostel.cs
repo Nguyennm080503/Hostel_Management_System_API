@@ -12,6 +12,7 @@
 
         public Account? AccountOwner { get; set; }
         public IList<Room>? Rooms { get; set; }
-        public IList<ServiceHostel> ServiceHostels { get; set; }
+        public IList<ServiceHostel>? ServiceHostels { get; set; }
+        public IList<BillPayment>? BillPayments { get; set; }
     }
 }

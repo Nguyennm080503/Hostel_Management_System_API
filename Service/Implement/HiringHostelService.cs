@@ -1,6 +1,7 @@
 ﻿using Common.Enum;
 using Dtos.Hiring;
 using Dtos.Service;
+using Models;
 using Repository.Interface;
 using Service.Exception;
 using Service.Interface;
@@ -93,6 +94,25 @@ namespace Service.Implement
         public async Task<HiringInformationDto> GetHiringCurrent(int roomId)
         {
             var hiringInf = await _hiringHostelRepository.GetHiringCurrent(roomId);
+            IEnumerable<HiringMemberDto> members = Enumerable.Empty<HiringMemberDto>();
+            IEnumerable<RoomServiceInformationDto> services = Enumerable.Empty<RoomServiceInformationDto>();
+            if (hiringInf != null)
+            {
+                members = await _memberHiringRepository.GetAllMembers(hiringInf.HiringRoomHostelID);
+                services = await _serviceRoomRepository.GetAllServiceOfRoom(hiringInf.HiringRoomHostelID);
+            }
+
+            return new HiringInformationDto
+            {
+                HiringInformation = hiringInf,
+                Members = members,
+                ServiceRooms = services,
+            };
+        }
+
+        public async Task<HiringInformationDto> GetHiringCurrentByHostel(int hostelId)
+        {
+            var hiringInf = await _hiringHostelRepository.GetHiringCurrentByHostel(hostelId);
             IEnumerable<HiringMemberDto> members = Enumerable.Empty<HiringMemberDto>();
             IEnumerable<RoomServiceInformationDto> services = Enumerable.Empty<RoomServiceInformationDto>();
             if (hiringInf != null)

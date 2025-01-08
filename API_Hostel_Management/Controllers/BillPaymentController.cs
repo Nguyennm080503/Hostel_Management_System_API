@@ -44,6 +44,32 @@ namespace API_Hostel_Management.Controllers
             }
         }
 
+        [HttpPost("add/bill-pay")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> CreateBillPay([FromBody] NewBillPayDto billDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                string errorMessages = ModelStateValidation.GetValidationErrors(ModelState);
+                return BadRequest(errorMessages);
+            }
+
+            try
+            {
+                int accountId = GetLoginAccountId();
+                await billPaymentService.CreateNewBillPaymentSpending(billDto, accountId);
+                return Ok();
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("hiring/history/all")]
         [Authorize(policy: "Customer")]
         public async Task<ActionResult> GetPaymentHistory(int hiringId)
@@ -83,6 +109,32 @@ namespace API_Hostel_Management.Controllers
             {
                 var bill = await billPaymentService.GetPaymentDetail(paymentId);
                 return Ok(bill);
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("all")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> GetPaymentsByAccount()
+        {
+            if (!ModelState.IsValid)
+            {
+                string errorMessages = ModelStateValidation.GetValidationErrors(ModelState);
+                return BadRequest(errorMessages);
+            }
+
+            try
+            {
+                int accountId = GetLoginAccountId();
+                var bills = await billPaymentService.GetBillsByAccount(accountId);
+                return Ok(bills);
             }
             catch (ServiceException ex)
             {

@@ -48,6 +48,17 @@ namespace Service.Implement
             return;
         }
 
+        public async Task CreateNewBillPaymentSpending(NewBillPayDto billDto, int accountId)
+        {
+            await repository.CreateNewBillPaymentSpending(billDto, accountId);
+            return;
+        }
+
+        public async Task<IEnumerable<BillDto>> GetBillsByAccount(int accountId)
+        {
+            return await repository.GetBillsByAccount(accountId);
+        }
+
         public async Task<BillDto> GetPaymentDetail(int paymentId)
         {
             var bill = await repository.GetBillPaymentById(paymentId);

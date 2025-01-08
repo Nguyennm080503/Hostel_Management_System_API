@@ -24,6 +24,18 @@ namespace Repository.Implement
             return;
         }
 
+        public async Task CreateNewBillPaymentSpending(NewBillPayDto billDto, int accountId)
+        {
+            var bill = mapper.Map<BillPayment>(billDto);
+            bill.AccountCreateID = accountId;
+            bill.DateCreate = DateTime.Now;
+            bill.Status = "Paid";
+            await BillDao.Instance.CreateAsync(bill);
+
+            return;
+
+        }
+
         public async Task<BillDto> GetBillPaymentById(int billId)
         {
             var bill = await BillDao.Instance.GetBillByID(billId);
@@ -42,6 +54,12 @@ namespace Repository.Implement
                 return null;
             }
             return mapper.Map<BillDto>(bill);
+        }
+
+        public async Task<IEnumerable<BillDto>> GetBillsByAccount(int accountId)
+        {
+            var bill = await BillDao.Instance.GetBillsByAccount(accountId);
+            return mapper.Map<IEnumerable<BillDto>>(bill);
         }
 
         public async Task<IEnumerable<BillDto>> GetPaymentHistory(int hiringId)

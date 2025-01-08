@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Dtos.Hiring;
+using Dtos.Hostel;
 
 namespace Dtos.Bill
 {
@@ -7,7 +8,8 @@ namespace Dtos.Bill
     {
         public int BillPaymentID { get; set; }
         public int AccountCreateID { get; set; }
-        public int HiringRoomHostelID { get; set; }
+        public int? HiringRoomHostelID { get; set; }
+        public int? HostelID { get; set; }
         public int BillPaymentType { get; set; }
         public double BillPaymentAmount { get; set; }
         public string? BillNote { get; set; }
@@ -16,6 +18,8 @@ namespace Dtos.Bill
 
         public IEnumerable<BillDetailDto>? Details { get; set; }
         public HiringDto? Hiring { get; set; }
+        public HostelDto? Hostel { get; set; }
+
     }
 
     public class BillDetailDto
@@ -51,6 +55,15 @@ namespace Dtos.Bill
         [Required(ErrorMessage = "Vui lòng nhập tổng tiền !")]
         public double BillPaymentAmount { get; set; }
         public string? BillNote { get; set; }
-        public IEnumerable<NewBillDetailDto> BillDetails { get; set; }
+        public IEnumerable<NewBillDetailDto>? BillDetails { get; set; }
+    }
+
+    public class NewBillPayDto
+    {
+        public int HostelID { get; set; }
+        public int BillPaymentType { get; set; }
+        [Required(ErrorMessage = "Vui lòng nhập tổng tiền !")]
+        public double BillPaymentAmount { get; set; }
+        public string? BillNote { get; set; }
     }
 }

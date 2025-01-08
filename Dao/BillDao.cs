@@ -57,7 +57,28 @@ namespace Dao
         {
             using (var context = new HostelManagementContext())
             {
-                return await context.BillPayments.Include(x => x.BillInformation).Where(x => x.HiringRoomHostelID == hiringId).OrderByDescending(x => x.DateCreate).ToListAsync();
+                return await context.BillPayments.Include(x => x.BillInformation)
+                    .Include(x => x.HiringRoomHostel)
+                        .ThenInclude(x => x.Hostel)
+                    .Include(x => x.HiringRoomHostel)
+                        .ThenInclude(x => x.Room)
+                        .Where(x => x.HiringRoomHostelID == hiringId)
+                        .OrderByDescending(x => x.DateCreate).ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<BillPayment>> GetBillsByAccount(int accountId)
+        {
+            using (var context = new HostelManagementContext())
+            {
+                return await context.BillPayments.Include(x => x.BillInformation)
+                    .Include(x => x.HiringRoomHostel)
+                        .ThenInclude(x => x.Hostel)
+                    .Include(x => x.HiringRoomHostel)
+                        .ThenInclude(x => x.Room)
+                    .Include(x => x.Hostel)
+                        .Where(x => x.AccountCreateID == accountId)
+                        .OrderByDescending(x => x.DateCreate).ToListAsync();
             }
         }
     }

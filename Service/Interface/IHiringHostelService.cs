@@ -7,5 +7,6 @@ namespace Service.Interface
         Task CreateHiringHostel(CreateHiringDto hiringDto, int accountId);
         Task<IEnumerable<HiringDto>> GetAllHiringsHistory(int roomId);
         Task<HiringInformationDto> GetHiringCurrent(int roomId);
+        Task<HiringInformationDto> GetHiringCurrentByHostel(int hostelId);
     }
 }

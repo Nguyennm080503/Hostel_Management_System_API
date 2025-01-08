@@ -17,6 +17,25 @@ namespace API_Hostel_Management.Controllers
             _hiringHostel = hiringHostel;
         }
 
+        [HttpGet("current/hostel")]
+        [Authorize(policy: "Customer")]
+        public async Task<ActionResult> GetHiringCurrentByHostel(int hostelId)
+        {
+            try
+            {
+                var hiring = await _hiringHostel.GetHiringCurrentByHostel(hostelId);
+                return Ok(hiring);
+            }
+            catch (ServiceException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("current")]
         [Authorize(policy: "Customer")]
         public async Task<ActionResult> GetHiringCurrent(int roomId)

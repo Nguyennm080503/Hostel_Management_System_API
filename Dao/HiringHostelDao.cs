@@ -35,7 +35,7 @@ namespace Dao
         {
             using (var context = new HostelManagementContext())
             {
-                var items = await context.HiringRoomHostels.Where(x => x.RoomID == roomId && x.Status == HiringStatusEnum.Hiring.ToString()).OrderByDescending(x => x.DateCreate).FirstOrDefaultAsync();
+                var items = await context.HiringRoomHostels.Include(x => x.Hostel).Include(x => x.Room).Where(x => x.RoomID == roomId && x.Status == HiringStatusEnum.Hiring.ToString()).OrderByDescending(x => x.DateCreate).FirstOrDefaultAsync();
                 return items;
             }
         }
@@ -53,6 +53,15 @@ namespace Dao
             using (var context = new HostelManagementContext())
             {
                 var items = await context.HiringRoomHostels.Where(x => x.HiringRoomHostelID == hiringId).FirstOrDefaultAsync();
+                return items;
+            }
+        }
+
+        public async Task<HiringRoomHostel> GetHiringHostelCurrentByHostel(int hostelId)
+        {
+            using (var context = new HostelManagementContext())
+            {
+                var items = await context.HiringRoomHostels.Include(x => x.Hostel).Where(x => x.HostelID == hostelId && x.Status == HiringStatusEnum.Hiring.ToString()).OrderByDescending(x => x.DateCreate).FirstOrDefaultAsync();
                 return items;
             }
         }

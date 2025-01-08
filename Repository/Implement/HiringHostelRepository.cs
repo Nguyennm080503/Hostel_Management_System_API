@@ -60,5 +60,11 @@ namespace Repository.Implement
             var hiring = await HiringHostelDao.Instance.GetHiringHostelCurrent(roomId);
             return _mapper.Map<HiringDto>(hiring);
         }
+
+        public async Task<HiringDto> GetHiringCurrentByHostel(int hostelId)
+        {
+            var hiring = await HiringHostelDao.Instance.GetHiringHostelCurrentByHostel(hostelId);
+            return _mapper.Map<HiringDto>(hiring);
+        }
     }
 }

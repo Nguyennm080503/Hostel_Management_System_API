@@ -79,6 +79,12 @@ namespace Dao
                .HasForeignKey(r => r.HostelID)
                .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Hostel>()
+               .HasMany(h => h.BillPayments)
+               .WithOne(r => r.Hostel)
+               .HasForeignKey(r => r.HostelID)
+               .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<HiringRoomHostel>()
                 .HasOne(h => h.Hostel)
                 .WithMany()
