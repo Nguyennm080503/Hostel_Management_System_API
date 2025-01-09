@@ -71,7 +71,7 @@ namespace Dtos.Service
     public class NewRoomServiceDto
     {
         public int ServiceHostelRoomID { get; set; }
-        public NewServiceLogIndexDto NewServiceLogIndexDto { get; set; }
+        public NewServiceLogIndexDto? NewServiceLogIndexDto { get; set; }
     }
 
     public class RoomServiceDto

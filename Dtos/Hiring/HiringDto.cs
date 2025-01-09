@@ -43,7 +43,7 @@ namespace Dtos.Hiring
         public DateTime? HiringStart { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập ngày kết thúc !")]
         public DateTime? HiringEnd { get; set; }
-        public IEnumerable<NewRoomServiceDto> ServiceRooms { get; set; }
+        public IEnumerable<NewRoomServiceDto>? ServiceRooms { get; set; }
     }
 
 
@@ -75,7 +75,7 @@ namespace Dtos.Hiring
     {
         public HiringDto? HiringInformation { get; set; }
         public IEnumerable<HiringMemberDto>? Members { get; set; }
-        public IEnumerable<RoomServiceInformationDto> ServiceRooms { get; set; }
+        public IEnumerable<RoomServiceInformationDto>? ServiceRooms { get; set; }
     }
 
     public class NewServiceLogIndexDto
@@ -83,6 +83,6 @@ namespace Dtos.Hiring
         public int ServiceRoomID { get; set; }
         public int ServiceHostelID { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập chỉ số !")]
-        public int ServiceLog { get; set; }
+        public int? ServiceLog { get; set; }
     }
 }

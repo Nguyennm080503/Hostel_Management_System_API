@@ -17,11 +17,24 @@ namespace Repository.Implement
 
         public async Task CreateHiringHostel(CreateHiringDto hiringDto, int accountId)
         {
-            var hiring = _mapper.Map<HiringRoomHostel>(hiringDto);
+            var hiring = new HiringRoomHostel();
+            if(hiringDto.HiringType == 1 || hiringDto.HiringType == 3)
+            {
+                hiring.RoomID = hiringDto.RoomID;
+            }
             hiring.AccountOwnerID = accountId;
             hiring.DateCreate = DateTime.Now;
             hiring.Status = HiringStatusEnum.Hiring.ToString();
-            hiring.DateHiring = (int)(hiring.HiringEnd.Value - hiring.HiringStart.Value).TotalDays;
+            hiring.DateHiring = (int)(hiringDto.HiringEnd.Value - hiringDto.HiringStart.Value).TotalDays;
+            hiring.AccountHiringCitizen = hiringDto.AccountHiringCitizen;
+            hiring.AccountHiringPhone = hiringDto.AccountHiringPhone;
+            hiring.AccountHiringAddress = hiringDto.AccountHiringAddress;
+            hiring.AccountHiringName = hiringDto.AccountHiringName;
+            hiring.DepositAmount = hiringDto.DepositAmount;
+            hiring.HiringEnd = hiringDto.HiringEnd;
+            hiring.HiringStart = hiringDto.HiringStart;
+            hiring.HiringType = hiringDto.HiringType;
+            hiring.HostelID = hiringDto.HostelID;
 
             await HiringHostelDao.Instance.CreateAsync(hiring);
 
@@ -30,8 +43,10 @@ namespace Repository.Implement
 
         public async Task CreateServiceLogIndex(NewServiceLogIndexDto logIndexDto)
         {
-            var indexLog = _mapper.Map<ServiceLogIndex>(logIndexDto);
+            var indexLog = new ServiceLogIndex();
             indexLog.DateCreate = DateTime.Now;
+            indexLog.ServiceLog = (int)logIndexDto.ServiceLog;
+            indexLog.ServiceRoomID = logIndexDto.ServiceRoomID;
 
             await ServiceLogIndexDao.Instance.CreateAsync(indexLog);
 

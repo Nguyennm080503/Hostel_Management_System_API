@@ -51,6 +51,7 @@ namespace Dtos.Bill
     public class NewBillDto
     {
         public int HiringRoomHostelID { get; set; }
+        public int HostelID { get; set; }
         public int BillPaymentType { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tổng tiền !")]
         public double BillPaymentAmount { get; set; }

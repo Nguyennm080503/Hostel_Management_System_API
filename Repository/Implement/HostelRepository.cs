@@ -23,6 +23,7 @@ namespace Repository.Implement
             hostel.HostelRooms = hostelDto.HostelRooms;
             hostel.HostelType = hostelDto.HostelType;
             hostel.AccountID = accountId;
+            hostel.HostelPrice = hostelDto.HostelPrice;
             hostel.Status = HostelStatusEnum.Active.ToString();
             await HostelDao.Instance.CreateAsync(hostel);
 

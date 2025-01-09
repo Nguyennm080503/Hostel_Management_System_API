@@ -15,7 +15,7 @@
         public string? AccountHiringCitizen { get; set; }
         public int HiringType { get; set; }
         public double DepositAmount { get; set; }
-        public int DateHiring {  get; set; }
+        public int? DateHiring {  get; set; }
         public DateTime? HiringStart { get; set; }
         public DateTime? HiringEnd {  get; set; }
         public DateTime DateCreate { get; set; }

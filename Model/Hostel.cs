@@ -8,6 +8,7 @@
         public int HostelType { get; set; }
         public string? HostelAddress { get; set; }
         public int HostelRooms { get; set; }
+        public double? HostelPrice { get; set; }
         public string? Status { get; set; }
 
         public Account? AccountOwner { get; set; }

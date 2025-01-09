@@ -79,6 +79,36 @@ namespace Service.Implement
                 else
                 {
                     await _hiringHostelRepository.CreateHiringHostel(hiringDto, accountId);
+                    var hiring = await _hiringHostelRepository.GetHiringCurrentByHostel(hiringDto.HostelID);
+                    var member = new NewHiringMemberDto
+                    {
+                        HiringRoomHostelID = hiring.HiringRoomHostelID,
+                        MemberHiringName = hiring.AccountHiringName,
+                        Address = hiring.AccountHiringAddress,
+                        CitizenCard = hiring.AccountHiringCitizen,
+                        Phone = hiring.AccountHiringPhone
+                    };
+                    foreach (var service in hiringDto.ServiceRooms)
+                    {
+                        var hiringService = new RoomServiceDto
+                        {
+                            HiringRoomHostelID = hiring.HiringRoomHostelID,
+                            ServiceHostelRoomID = service.ServiceHostelRoomID,
+                        };
+                        await _serviceRoomRepository.AddNewServiceHiring(hiringService);
+                        var serviceCur = await _serviceRoomRepository.GetServiceByCurrent(hiringService.ServiceHostelRoomID, hiringService.HiringRoomHostelID);
+                        if (hiringDto.HiringType == 2 && service.NewServiceLogIndexDto.ServiceLog != 0)
+                        {
+                            var indexLog = new NewServiceLogIndexDto
+                            {
+                                ServiceHostelID = serviceCur.HiringServiceID,
+                                ServiceLog = service.NewServiceLogIndexDto.ServiceLog,
+                                ServiceRoomID = serviceCur.HiringServiceID,
+                            };
+                            await _hiringHostelRepository.CreateServiceLogIndex(indexLog);
+                        }
+                    }
+                    await _memberHiringRepository.CreateNewMember(member);
                     await _hostelRepository.UpdateHostelHiring(hiringDto.HostelID);
                 }
             }

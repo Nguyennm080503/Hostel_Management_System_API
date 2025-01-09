@@ -9,6 +9,7 @@ namespace Dtos.Hostel
         public int HostelType { get; set; }
         public string? HostelAddress { get; set; }
         public int HostelRooms { get; set; }
+        public int HostelPrice { get; set; }
         public string? Status { get; set; }
     }
 
@@ -25,6 +26,8 @@ namespace Dtos.Hostel
 
         [Required(ErrorMessage = "Vui lòng nhập số phòng của nhà !")]
         public int HostelRooms { get; set; }
+
+        public int HostelPrice { get; set; }
     }
 
     public class UpdateHostelDto

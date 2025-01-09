@@ -23,6 +23,7 @@ namespace API_Hostel_Management.Extension
             services.AddScoped<IMemberHiringRepository, MemberHiringRepository>();
             services.AddScoped<IPaymentDetailRepository, PaymentDetailRepository>();
             services.AddScoped<IBillPaymentRepository, BillPaymentRepository>();
+            services.AddScoped<IDashboardRepository, DashboardRepository>();
 
             //Service
             services.AddScoped<IMailService, MailService>();
@@ -37,6 +38,7 @@ namespace API_Hostel_Management.Extension
             services.AddScoped<IHiringHostelService, HiringHostelService>();
             services.AddScoped<IMemberHiringService, MemberHiringService>();
             services.AddScoped<IBillPaymentService, BillPaymentService>();
+            services.AddScoped<IDashboardService, DashboardService>();
 
 
             services.AddCors(opt =>
