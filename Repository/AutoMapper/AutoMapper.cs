@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dtos.Account;
 using Dtos.Bill;
+using Dtos.Dashboard;
 using Dtos.Hiring;
 using Dtos.Hostel;
 using Dtos.Measurement;
@@ -67,6 +68,7 @@ namespace Repository.AutoMapper
             CreateMap<BillPayment, BillDto>().ForMember(dest => dest.Details, opt => opt.MapFrom(src => src.BillInformation)).ForMember(dest => dest.Hiring, opt => opt.MapFrom(src => src.HiringRoomHostel));
             CreateMap<BillPayment, NewBillDto>().ReverseMap();
             CreateMap<BillPayment, NewBillPayDto>().ReverseMap();
+            CreateMap<BillPayment, DashboardPaymentDto>().ReverseMap();
 
             CreateMap<BillInformation, BillDetailDto>().ReverseMap();
             CreateMap<BillInformation, NewBillDetailDto>().ReverseMap();
